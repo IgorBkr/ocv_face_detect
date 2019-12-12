@@ -10,7 +10,7 @@ int main()
 	CDetectAndDisplay detect;
 	cout << "Loaded CDetectAndDisplay object!\n";
 
-	if (!detect.detectAndDisplay())
+	if (!detect.detectAndDisplay(false))
 	{
 		cout << "ERROR! detectAndDisplay() failed!\n";
 		getchar();

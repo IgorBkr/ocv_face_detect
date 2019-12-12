@@ -10,11 +10,11 @@ public:
 	CDetectAndDisplay();
 	virtual ~CDetectAndDisplay();
 
-	bool detectAndDisplay();
+	bool detectAndDisplay(bool detct_eyes = true);
 
 protected:
-	bool LoadCascades();
-	bool detectAndDisplay(Mat& frame);
+	bool LoadCascades(bool detect_eyes);
+	bool detectAndDisplay(Mat& frame, bool detct_eyes);
 
 protected:
 	// TODO: can I make a vector of classifiers and expose method: add_classifier?

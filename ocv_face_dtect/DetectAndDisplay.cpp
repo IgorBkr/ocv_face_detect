@@ -26,10 +26,10 @@ CDetectAndDisplay::~CDetectAndDisplay()
 }
 
 //
-bool CDetectAndDisplay::detectAndDisplay()
+bool CDetectAndDisplay::detectAndDisplay(bool detect_eyes/* = true*/)
 {
 	// load cascades
-	if (!LoadCascades()) return false;
+	if (!LoadCascades(detect_eyes)) return false;
 
 	VideoCapture capture;
 	Mat frame;
@@ -43,7 +43,7 @@ bool CDetectAndDisplay::detectAndDisplay()
 		if (frame.empty()) return false;
 
 		// apply classifiers
-		if (!detectAndDisplay(frame)) return false;
+		if (!detectAndDisplay(frame, detect_eyes)) return false;
 
 		int c = waitKey(10);
 		if (c == 'c') break; // 'c' is an exit key
@@ -53,7 +53,7 @@ bool CDetectAndDisplay::detectAndDisplay()
 }
 
 //
-bool CDetectAndDisplay::detectAndDisplay(Mat& frame)
+bool CDetectAndDisplay::detectAndDisplay(Mat& frame, bool detect_eyes)
 {
 	vector<Rect> faces;
 	Mat frame_gray;
@@ -72,19 +72,22 @@ bool CDetectAndDisplay::detectAndDisplay(Mat& frame)
 		Point center(face.x + face.width*0.5, face.y + face.height*0.5);
 		ellipse(frame, center, Size(face.width*0.5, face.height*0.5), 0, 0, 360, Scalar(255, 0, 255), 4, 8, 0);
 
-		// detect eyes
-		Mat faceROI = frame_gray(face);
-		vector<Rect> eyes;
-
-		eyes_cascade.detectMultiScale(faceROI, eyes, 1.1, 2, 0 | CV_HAAR_SCALE_IMAGE, Size(30, 30));
-
-		for (auto& eye : eyes)
+		if (detect_eyes)
 		{
-			// plot
-			Point center(face.x + eye.x + eye.width*0.5, face.y + eye.y + eye.height*0.5);
-			int radius = cvRound((eye.width + eye.height)*0.25);
-			// TODO: adjust parameters
-			circle(frame, center, radius, Scalar(255, 0, 0), 4, 8, 0);
+			// detect eyes
+			Mat faceROI = frame_gray(face);
+			vector<Rect> eyes;
+
+			eyes_cascade.detectMultiScale(faceROI, eyes, 1.1, 2, 0 | CV_HAAR_SCALE_IMAGE, Size(30, 30));
+
+			for (auto& eye : eyes)
+			{
+				// plot
+				Point center(face.x + eye.x + eye.width*0.5, face.y + eye.y + eye.height*0.5);
+				int radius = cvRound((eye.width + eye.height)*0.25);
+				// TODO: adjust parameters
+				circle(frame, center, radius, Scalar(255, 0, 0), 4, 8, 0);
+			}
 		}
 	}
 
@@ -94,11 +97,11 @@ bool CDetectAndDisplay::detectAndDisplay(Mat& frame)
 }
 
 //
-bool CDetectAndDisplay::LoadCascades()
+bool CDetectAndDisplay::LoadCascades(bool detect_eyes)
 {
 	if(face_cascade.empty())
 		if (!this->face_cascade.load(face_cascade_name)) return false;
-	if(eyes_cascade.empty())
+	if(detect_eyes && eyes_cascade.empty())
 		if (!this->eyes_cascade.load(eye_cascade_name)) return false;
 	return true;
 }
