@@ -21,5 +21,8 @@ protected:
 	CascadeClassifier face_cascade;
 	CascadeClassifier eyes_cascade;
 	String win_name;
+	Scalar face_plot_color;
+	Scalar eyes_plot_colr;
+	int plot_line_thikness;
 };
 

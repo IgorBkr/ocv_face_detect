@@ -19,6 +19,9 @@ const String def_win_name = "Capture: Face Detection";
 CDetectAndDisplay::CDetectAndDisplay()
 {
 	win_name = def_win_name;
+	face_plot_color = Scalar(0, 255, 0);
+	eyes_plot_colr = Scalar(0, 255, 0);
+	plot_line_thikness = 1; 
 }
 
 //
@@ -55,22 +58,21 @@ bool CDetectAndDisplay::detectAndDisplay(bool detect_eyes/* = true*/)
 //
 bool CDetectAndDisplay::detectAndDisplay(Mat& frame, bool detect_eyes)
 {
-	vector<Rect> faces;
-	Mat frame_gray;
-
 	// convert to gray
+	Mat frame_gray;
 	cvtColor(frame, frame_gray, CV_BGR2GRAY);
 	equalizeHist(frame_gray, frame_gray);
 
-	// TODO: check docs
 	// detect faces
+	vector<Rect> faces;
+	// TODO: check docs
 	face_cascade.detectMultiScale(frame_gray, faces, 1.1, 2, 0 | CV_HAAR_SCALE_IMAGE, Size(30, 30));
 
 	for (auto& face : faces)
 	{
 		// plot ellipse
 		Point center(face.x + face.width*0.5, face.y + face.height*0.5);
-		ellipse(frame, center, Size(face.width*0.5, face.height*0.5), 0, 0, 360, Scalar(255, 0, 255), 4, 8, 0);
+		ellipse(frame, center, Size(face.width*0.5, face.height*0.5), 0, 0, 360, face_plot_color, plot_line_thikness, 8, 0);
 
 		if (detect_eyes)
 		{
@@ -86,7 +88,7 @@ bool CDetectAndDisplay::detectAndDisplay(Mat& frame, bool detect_eyes)
 				Point center(face.x + eye.x + eye.width*0.5, face.y + eye.y + eye.height*0.5);
 				int radius = cvRound((eye.width + eye.height)*0.25);
 				// TODO: adjust parameters
-				circle(frame, center, radius, Scalar(255, 0, 0), 4, 8, 0);
+				circle(frame, center, radius, eyes_plot_colr, plot_line_thikness, 8, 0);
 			}
 		}
 	}
