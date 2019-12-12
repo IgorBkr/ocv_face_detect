@@ -120,10 +120,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DetectAndDisplay.cpp" />
+    <ClCompile Include="FaceDetect.cpp" />
+    <ClCompile Include="FaceDetectHAAR.cpp" />
+    <ClCompile Include="FaceDetectPlot.cpp" />
+    <ClCompile Include="FaceDetectPlotDisplay.cpp" />
     <ClCompile Include="ocv_face_dtect.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DetectAndDisplay.h" />
+    <ClInclude Include="FaceDetect.h" />
+    <ClInclude Include="FaceDetectHAAR.h" />
+    <ClInclude Include="FaceDetectPlot.h" />
+    <ClInclude Include="FaceDetectPlotDisplay.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -10,7 +10,7 @@ public:
 	CDetectAndDisplay();
 	virtual ~CDetectAndDisplay();
 
-	enum PlotShape { PLOT_RECT, PLOT_ELLIPSE };
+	enum PlotShape { PLOT_RECT, PLOT_ELLIPSE, PLOT_BLUR };
 	void setPlotShapeFace(PlotShape shape);
 
 	bool detectAndDisplay(bool detct_eyes = true);
