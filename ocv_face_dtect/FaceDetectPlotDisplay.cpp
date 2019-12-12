@@ -21,6 +21,7 @@ CFaceDetectPlotDisplay::~CFaceDetectPlotDisplay()
 {
 }
 
+// TODO: add file and URL as a source (open() can be called with filename: https://docs.opencv.org/3.4/d8/dfe/classcv_1_1VideoCapture.html ).
 //
 bool CFaceDetectPlotDisplay::DetectAndDisplayFromCamera()
 {
