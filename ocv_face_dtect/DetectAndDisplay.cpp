@@ -22,11 +22,18 @@ CDetectAndDisplay::CDetectAndDisplay()
 	face_plot_color = Scalar(0, 255, 0);
 	eyes_plot_colr = Scalar(0, 255, 0);
 	plot_line_thikness = 1; 
+	face_plot_shape = PLOT_RECT;
 }
 
 //
 CDetectAndDisplay::~CDetectAndDisplay()
 {
+}
+
+//
+void CDetectAndDisplay::setPlotShapeFace(PlotShape shape)
+{
+	face_plot_shape = shape;
 }
 
 //
@@ -70,9 +77,19 @@ bool CDetectAndDisplay::detectAndDisplay(Mat& frame, bool detect_eyes)
 
 	for (auto& face : faces)
 	{
-		// plot ellipse
-		Point center(face.x + face.width*0.5, face.y + face.height*0.5);
-		ellipse(frame, center, Size(face.width*0.5, face.height*0.5), 0, 0, 360, face_plot_color, plot_line_thikness, 8, 0);
+		if (face_plot_shape == PLOT_ELLIPSE)
+		{
+			// plot ellipse
+			Point center(face.x + face.width*0.5, face.y + face.height*0.5);
+			ellipse(frame, center, Size(face.width*0.5, face.height*0.5), 0, 0, 360, face_plot_color, plot_line_thikness, 8, 0);
+		}
+		else
+		{
+			// plot rectangle (default)
+			Point pt1(face.x, face.y);
+			Point pt2(face.x + face.width, face.y + face.height);
+			rectangle(frame, pt1, pt2, face_plot_color, plot_line_thikness);
+		}
 
 		if (detect_eyes)
 		{
@@ -87,7 +104,6 @@ bool CDetectAndDisplay::detectAndDisplay(Mat& frame, bool detect_eyes)
 				// plot
 				Point center(face.x + eye.x + eye.width*0.5, face.y + eye.y + eye.height*0.5);
 				int radius = cvRound((eye.width + eye.height)*0.25);
-				// TODO: adjust parameters
 				circle(frame, center, radius, eyes_plot_colr, plot_line_thikness, 8, 0);
 			}
 		}

@@ -10,6 +10,9 @@ int main()
 	CDetectAndDisplay detect;
 	cout << "Loaded CDetectAndDisplay object!\n";
 
+	//detect.setPlotShapeFace(CDetectAndDisplay::PLOT_ELLIPSE);
+	detect.setPlotShapeFace(CDetectAndDisplay::PLOT_RECT);
+
 	if (!detect.detectAndDisplay(false))
 	{
 		cout << "ERROR! detectAndDisplay() failed!\n";

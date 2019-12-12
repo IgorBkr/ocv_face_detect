@@ -10,6 +10,9 @@ public:
 	CDetectAndDisplay();
 	virtual ~CDetectAndDisplay();
 
+	enum PlotShape { PLOT_RECT, PLOT_ELLIPSE };
+	void setPlotShapeFace(PlotShape shape);
+
 	bool detectAndDisplay(bool detct_eyes = true);
 
 protected:
@@ -24,5 +27,6 @@ protected:
 	Scalar face_plot_color;
 	Scalar eyes_plot_colr;
 	int plot_line_thikness;
+	PlotShape face_plot_shape;
 };
 
