@@ -86,9 +86,7 @@ bool CDetectAndDisplay::detectAndDisplay(Mat& frame, bool detect_eyes)
 		else
 		{
 			// plot rectangle (default)
-			Point pt1(face.x, face.y);
-			Point pt2(face.x + face.width, face.y + face.height);
-			rectangle(frame, pt1, pt2, face_plot_color, plot_line_thikness);
+			rectangle(frame, face, face_plot_color, plot_line_thikness);
 		}
 
 		if (detect_eyes)
