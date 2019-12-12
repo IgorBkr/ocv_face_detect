@@ -12,6 +12,7 @@ const String def_win_name = "Capture: Face Detection";
 
 // TODO: look here for some updated (?) methods: https://www.geeksforgeeks.org/opencv-c-program-face-detection/ 
 // AND here: https://github.com/opencv/opencv/blob/master/samples/cpp/tutorial_code/objectDetection/objectDetection.cpp
+// AND (the same excat way as original - updated): https://docs.opencv.org/3.4/db/d28/tutorial_cascade_classifier.html
 // TODO: check Open CV face detection documentation tutorial: https://docs.opencv.org/2.4/modules/contrib/doc/facerec/facerec_tutorial.html (is this for 2.4??)
 
 //
