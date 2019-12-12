@@ -17,6 +17,6 @@ int main()
 		return -1;
 	}
 
-	getchar();
+	//getchar();
 	return 0;
 }
