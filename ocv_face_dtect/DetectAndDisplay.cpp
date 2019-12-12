@@ -31,23 +31,14 @@ bool CDetectAndDisplay::detectAndDisplay()
 	// load cascades
 	if (!LoadCascades()) return false;
 
-	// start the video stream
-	//CvCapture* capture;
 	VideoCapture capture;
-	//IplImage* image;
 	Mat frame;
 
-	//capture = cvCaptureFromCAM(-1);
-	//capture = cvCreateCameraCapture(-1);
-	//if (!capture) return false;
 	capture.open(0); // web cam
 	if (!capture.isOpened()) return false;
 
 	while (true)
 	{
-		//image = cvQueryFrame(capture);
-		//if (!image) return false;
-		//frame = cvarrToMat(image); // copyData = false by default
 		capture >> frame;
 		if (frame.empty()) return false;
 
