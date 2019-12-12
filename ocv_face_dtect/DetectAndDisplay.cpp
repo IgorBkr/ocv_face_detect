@@ -38,9 +38,8 @@ bool CDetectAndDisplay::detectAndDisplay(bool detect_eyes/* = true*/)
 	capture.open(0); // web cam
 	if (!capture.isOpened()) return false;
 
-	while (true)
+	while (capture.read(frame))
 	{
-		capture >> frame;
 		if (frame.empty()) return false;
 
 		// apply classifiers
